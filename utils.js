@@ -163,9 +163,15 @@ utils.multipart = function multipart (options, ctx) {
  */
 utils.handleMultiple = function handleMultiple (res) {
   return function handleFilesAndFields (name, value) {
-    res[name] = res[name] ? [res[name]] : []
-    res[name].push(value)
-    res[name] = res[name].length > 1 ? res[name] : res[name][0]
+    res[name] = res[name] ? res[name] : []
+    if (typeof value === 'object') (value.size > 0 ? res[name].push(value) : null)
+    else {
+      if (!res[name][0]) res[name] = value
+      else {
+        res[name] = [res[name]]
+        res[name].push(value)
+      }
+    }
   }
 }
 

@@ -36,8 +36,8 @@ test('should get multipart body by default', function (done) {
   var server = koa().use(betterBody())
   server.use(function * () {
     test.ok(this.request.files)
-    test.strictEqual(this.request.files.foo.name, 'LICENSE')
-    test.strictEqual(this.request.files.bar.name, 'utils.js')
+    test.strictEqual(this.request.files.foo[0].name, 'LICENSE')
+    test.strictEqual(this.request.files.bar[0].name, 'utils.js')
     this.body = 'ok1'
   })
   request(server.callback())
